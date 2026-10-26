@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TaskBol - Gana puntos</title>
+<style>
+:root {
+  --bg: #0b1020;
+  --panel: #151d30;
+  --green: #36e69a;
+  --text: #f5f7ff;
+  --muted: #a4aec4;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
+header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #263149;
+}
+.logo { font-size: 22px; font-weight: bold; }
+.logo span { color: var(--green); }
+.tag {
+  font-size: 11px;
+  padding: 7px 10px;
+  border-radius: 20px;
+  background: #27352f;
+  color: var(--green);
+}
+main {
+  width: min(100% - 28px, 600px);
+  margin: 24px auto 100px;
+}
+.hero {
+  padding: 24px;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #173b38, #18213a);
+}
+.hero p, .muted { color: var(--muted); }
+h1 { font-size: 28px; margin: 10px 0; }
+.balance {
+  background: var(--panel);
+  border: 1px solid #29354c;
+  border-radius: 18px;
+  padding: 20px;
+  margin-top: 18px;
+}
+.label { color: var(--muted); font-size: 13px; }
+.amount { font-size: 34px; font-weight: bold; margin: 9px 0; }
+.amount span { color: var(--green); }
+button {
+  border: 0;
+  padding: 12px 16px;
+  border-radius: 11px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.primary {
+  background: var(--green);
+  color: #07160f;
+}
+.secondary {
+  background: #263149;
+  color: white;
+}
+h2 { font-size: 20px; margin-top: 28px; }
+.task {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  background: var(--panel);
+  border: 1px solid #29354c;
+  border-radius: 16px;
+  padding: 15px;
+  margin: 12px 0;
+}
+.task-icon {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: center;
+  background: #24342f;
+  border-radius: 13px;
+  font-size: 23px;
+}
+.task-info { flex: 1; }
+.task-info p {
+  color: var(--muted);
+  font-size: 12px;
+  margin-bottom: 0;
+}
+.points { color: var(--green); font-weight: bold; }
+.task button { margin-top: 10px; }
+.notice {
+  padding: 14px;
+  border-radius: 12px;
+  background: #202a40;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 15px;
+  background: #11182a;
+  border-top: 1px solid #263149;
+  color: var(--muted);
+  font-size: 12px;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="logo">Task<span>Bol</span></div>
+  <div class="tag">VERSIÓN DEMO</div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="label">TU CENTRO DE RECOMPENSAS</div>
+    <h1>Pequeñas tareas,<br>nuevas oportunidades.</h1>
+    <p>Completa actividades y acumula puntos.</p>
+  </section>
+
+  <section class="balance">
+    <div class="label">TU SALDO DE PRUEBA</div>
+    <div class="amount"><span id="balance">0</span> puntos</div>
+    <div class="label">Los puntos no representan dinero real.</div>
+    <button class="secondary" style="margin-top:16px"
+      onclick="resetPoints()">Reiniciar demo</button>
+  </section>
+
+  <h2>📋 Tareas disponibles</h2>
+
+  <div class="task">
+    <div class="task-icon">🧠</div>
+    <div class="task-info">
+      <strong>Encuesta de ejemplo</strong>
+      <p>Prueba de funcionamiento</p>
+      <div class="points">+50 puntos demo</div>
+      <button class="primary" onclick="completeTask(1,50,this)">
+        Completar
+      </button>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-icon">🎮</div>
+    <div class="task-info">
+      <strong>Probar una aplicación</strong>
+      <p>Tarea demostrativa</p>
+      <div class="points">+100 puntos demo</div>
+      <button class="primary" onclick="completeTask(2,100,this)">
+        Completar
+      </button>
+    </div>
+  </div>
+
+  <div class="task">
+    <div class="task-icon">📺</div>
+    <div class="task-info">
+      <strong>Publicidad patrocinada</strong>
+      <p>Espacio reservado para un proveedor autorizado</p>
+      <div class="points">Sin recompensa real</div>
+      <button class="secondary"
+        onclick="alert('Esta función estará disponible cuando se integre un proveedor autorizado.')">
+        Próximamente
+      </button>
+    </div>
+  </div>
+
+  <h2>💳 Retiros</h2>
+  <section class="balance">
+    <strong>Próximamente</strong>
+    <p class="muted">
+      Los retiros todavía no están habilitados.
+      No envíes dinero para desbloquear recompensas.
+    </p>
+    <button class="secondary"
+      onclick="alert('Esta demo no procesa pagos ni retiros.')">
+      Ver opciones
+    </button>
+  </section>
+
+  <div class="notice">
+    DEMOSTRACIÓN: las tareas y los puntos son ficticios.
+    No hay pagos, cuentas de usuario ni conexión con Binance.
+    No introduzcas datos bancarios, contraseñas ni documentos.
+  </div>
+</main>
+
+<footer>TaskBol © 2026 · Proyecto en desarrollo</footer>
+
+<script>
+let balance = 0;
+const completed = new Set();
+
+function completeTask(id, points, button) {
+  if (completed.has(id)) {
+    alert("Ya completaste esta tarea de demostración.");
+    return;
+  }
+
+  completed.add(id);
+  balance += points;
+  document.getElementById("balance").textContent = balance;
+  button.textContent = "Completada ✓";
+  button.disabled = true;
+  button.style.opacity = "0.6";
+}
+
+function resetPoints() {
+  balance = 0;
+  completed.clear();
+  document.getElementById("balance").textContent = "0";
+
+  document.querySelectorAll(".task button.primary")
+    .forEach(button => {
+      button.disabled = false;
+      button.textContent = "Completar";
+      button.style.opacity = "1";
+    });
+}
+</script>
+
+</body>
+</html>
